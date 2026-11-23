@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#15181C" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Nexadesk streams a Windows desktop over WebRTC and lets you control it from any browser — direct peer connection, no relay server in the middle." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Nexadesk — the desktop stays put, you don't have to" />
+    <meta property="og:description" content="A WebRTC remote desktop project: direct peer-to-peer screen streaming and remote control, no relay server in between." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Nexadesk — the desktop stays put, you don't have to" />
+    <meta name="twitter:description" content="A WebRTC remote desktop project: direct peer-to-peer screen streaming and remote control, no relay server in between." />
+    <title>Nexadesk — the desktop stays put, you don't have to</title>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('nexadesk-theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
