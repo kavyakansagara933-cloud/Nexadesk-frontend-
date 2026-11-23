@@ -1,0 +1,13 @@
+{
+  "name": "Nexadesk",
+  "short_name": "Nexadesk",
+  "description": "A WebRTC remote desktop project — stream and control a Windows screen directly from the browser.",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#15181C",
+  "background_color": "#F1F1EC",
+  "display": "standalone",
+  "start_url": "/"
+}
