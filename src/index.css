@@ -1,0 +1,401 @@
+:root {
+  /* Color — cool graphite paper, one loud signal accent, one functional status color */
+  --paper: #F1F1EC;
+  --paper-raised: #FFFFFF;
+  --ink: #15181C;
+  --ink-soft: #5C625F;
+  --ink-faint: #8B9088;
+  --line: #D8D9D2;
+  --line-strong: #B7B9AE;
+
+  --signal: #FF3E7F;      /* the live cursor / accent — used once per view, deliberately */
+  --signal-soft: #FFE4ED;
+  --connected: #1FAE6B;   /* literal connection-status color only, never decorative */
+
+  /* Secondary accents — each tied to one technical concept, reused consistently
+     across the spec strip, feature cards and step icons so color acts as a legend:
+     cyan = video/screen capture, violet = signaling/data channel, amber = input/control */
+  --accent-cyan: #0EA5B5;
+  --accent-cyan-soft: #DFF4F5;
+  --accent-violet: #7C5CFC;
+  --accent-violet-soft: #EBE6FF;
+  --accent-amber: #E8890C;
+  --accent-amber-soft: #FCEACB;
+
+  /* Dedicated tokens for elements that must stay "dark panel" regardless of
+     theme (primary buttons, the CTA block) — kept separate from --ink/--paper
+     so those can flip meaning in dark mode without breaking these. */
+  --btn-primary-bg: #15181C;
+  --btn-primary-text: #F1F1EC;
+  --cta-bg: #15181C;
+  --cta-text: #F1F1EC;
+
+  --shadow-card: 0 1px 2px rgba(21, 24, 28, 0.04), 0 12px 28px -16px rgba(21, 24, 28, 0.16);
+  --shadow-btn: 0 1px 2px rgba(21, 24, 28, 0.06), 0 6px 16px -8px rgba(21, 24, 28, 0.22);
+
+  /*
+   * Type system — four fonts, strict roles, no free mixing:
+   *   --font-display  Bricolage Grotesque 600/700 — hero, major headings, high-impact statements (~20-25% of text)
+   *   --font-body     Hanken Grotesk 400/500/600/700 — everything else: body, nav, buttons, cards (~60-65%)
+   *   --font-mono     IBM Plex Mono 400/500 — technical/system labels only (~10-15%)
+   *   --font-accent   Instrument Serif 400 italic — max 2 words on the whole site, editorial interruption only (~3-5%)
+   * (General Sans was specified but isn't available to self-host in this
+   * environment — Hanken Grotesk substitutes as the closest-spirited
+   * functional UI grotesk.)
+   */
+  --font-display: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+  --font-accent: 'Instrument Serif', Georgia, serif;
+
+  /* Type scale — formal, centralized. Display capped at 44–72px per the
+     existing two-column hero (not 64–96px) so the headline never forces
+     awkward wrapping around the demo card. */
+  --text-display: clamp(2.75rem, 5.4vw, 4.5rem);  /* 44–72px: hero headline only */
+  --text-h1: clamp(2.5rem, 3.8vw, 3.25rem);        /* 40–52px: major standalone statements (CTA) */
+  --text-h2: clamp(1.75rem, 2.6vw, 2.25rem);       /* 28–36px: section headings */
+  --text-h3: clamp(1.2rem, 1.6vw, 1.4rem);         /* ~19–22px: card/subsection titles */
+  --text-body-lg: 1.08rem;                          /* ~17px: hero/section intro paragraphs */
+  --text-body: 1rem;                                /* 16px: default body */
+  --text-small: 0.875rem;                           /* 14px: captions, secondary UI text */
+  --text-label: 0.78rem;                            /* ~12.5px: mono technical labels */
+
+  /* Scale */
+  --step-0: 1rem;
+  --step-1: 1.2rem;
+  --step-2: 1.6rem;
+  --step-3: 2.15rem;
+  --step-4: 2.9rem;
+  --step-5: 4rem;
+
+  --content-width: 1160px;
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --radius-sm: 4px;
+  --radius: 10px;
+
+  color-scheme: light;
+}
+
+/*
+ * Dark mode — the machine/runtime counterpart to the paper/editorial light
+ * theme, not an inverted filter. Dark charcoal (not pure black), a lighter
+ * raised surface for cards, warm off-white text, and brighter accent values
+ * so the same color legend stays legible against a dark background.
+ */
+:root[data-theme='dark'] {
+  --paper: #1B1C1F;
+  --paper-raised: #232427;
+  --ink: #F2F1ED;
+  --ink-soft: #A9ACA6;
+  --ink-faint: #74766F;
+  --line: #35363A;
+  --line-strong: #46484D;
+
+  --signal: #FF5C90;
+  --signal-soft: color-mix(in srgb, var(--signal) 18%, transparent);
+  --connected: #34D399;
+
+  --accent-cyan: #2DD4D4;
+  --accent-cyan-soft: color-mix(in srgb, var(--accent-cyan) 16%, transparent);
+  --accent-violet: #9B8CFF;
+  --accent-violet-soft: color-mix(in srgb, var(--accent-violet) 18%, transparent);
+  --accent-amber: #FFB020;
+  --accent-amber-soft: color-mix(in srgb, var(--accent-amber) 16%, transparent);
+
+  --btn-primary-bg: #F2F1ED;
+  --btn-primary-text: #1B1C1F;
+  --cta-bg: #26272B;
+  --cta-text: #F2F1ED;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px -16px rgba(0, 0, 0, 0.55);
+  --shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 16px -8px rgba(0, 0, 0, 0.5);
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  margin: 0;
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--ink-soft);
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+}
+
+/* Instrument Serif italic — reserved for at most two words on the entire
+   site. Hard-set weight/style so nothing ever synthesizes a fake bold. */
+.accent-serif {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--signal);
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 1000;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Scroll reveal — used by <Reveal>. Starts visible if JS never runs. */
+.reveal {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ambient gradient blobs — used behind hero/CTA for depth */
+.blob-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.4;
+}
+
+/* Subtle film-grain overlay across the whole page for tactile texture */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Mouse-tracked spotlight glow — apply .spotlight + onMouseMove={handleSpotlightMove} */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--signal) 16%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+.spotlight > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (hover: none) {
+  .spotlight::before {
+    display: none;
+  }
+}
+
+section {
+  padding-block: clamp(3rem, 6.5vw, 5.5rem);
+}
+
+/* Shared buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.btn--primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  box-shadow: var(--shadow-btn);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--btn-primary-bg) 88%, black);
+  box-shadow: 0 4px 8px rgba(21, 24, 28, 0.08), 0 16px 32px -10px color-mix(in srgb, var(--signal) 45%, rgba(21,24,28,0.3));
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+}
+
+.btn--ghost {
+  border-color: var(--line-strong);
+  color: var(--ink);
+  background: var(--paper-raised);
+}
+
+.btn--ghost:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+
+/* Shared section heading block */
+.section-head {
+  max-width: 48ch;
+  margin-bottom: clamp(2.25rem, 5vw, 3.5rem);
+}
+
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  margin-bottom: 1rem;
+}
+
+.section-kicker::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 1px;
+  background: var(--signal);
+}
+
+.section-head h2 {
+  font-size: var(--text-h2);
+  margin-bottom: 0.9rem;
+}
+
+.section-head p {
+  font-size: var(--text-body-lg);
+}
+
+/* Gradient top accent used on card grids to tie the component system together */
+.accent-top {
+  position: relative;
+}
+
+.accent-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--card-accent, var(--signal)), transparent);
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: left;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.accent-top:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
